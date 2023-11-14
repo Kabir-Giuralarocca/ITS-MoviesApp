@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
+import 'package:movies_app/ui/widgets/form_input.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool obscurePwd = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,35 +31,20 @@ class LoginScreen extends StatelessWidget {
           Form(
             child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        spreadRadius: 5,
-                        offset: const Offset(0, 2),
-                        blurRadius: 16,
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "USERNAME",
-                        style: semibold_12.copyWith(
-                          color: Colors.grey.shade700,
-                        ),
-                      ),
-                      TextFormField(),
-                    ],
-                  ),
+                const FormInput(
+                  label: "USERNAME",
+                  hint: "es. MarioRossi",
+                  icon: Icons.person,
                 ),
-                TextFormField(),
+                FormInput(
+                  label: "PASSWORD",
+                  hint: "Password",
+                  icon: obscurePwd ? Icons.visibility : Icons.visibility_off,
+                  obscureText: obscurePwd,
+                  onIconTap: () => setState(() {
+                    obscurePwd = !obscurePwd;
+                  }),
+                ),
               ],
             ),
           )

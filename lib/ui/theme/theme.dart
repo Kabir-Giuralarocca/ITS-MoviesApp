@@ -39,5 +39,13 @@ class AppTheme {
         ),
       ),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: regular_14.copyWith(color: Colors.grey),
+      errorStyle: regular_12.copyWith(color: Colors.red),
+      border: InputBorder.none,
+      suffixIconColor: Colors.grey.shade700,
+      contentPadding: EdgeInsets.zero,
+      isDense: true,
+    ),
   );
 }
