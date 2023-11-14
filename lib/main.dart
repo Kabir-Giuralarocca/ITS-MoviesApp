@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/ui/screens/login_screen.dart';
+import 'package:movies_app/ui/screens/register_screen.dart';
 import 'package:movies_app/ui/theme/theme.dart';
 
 void main() {
@@ -14,7 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movies App',
       theme: AppTheme.theme,
-      home: const LoginScreen(),
+      initialRoute: "/login",
+      routes: {
+        "/login": (context) => const LoginScreen(),
+        "/register": (context) => const RegisterScreen(),
+      },
     );
   }
 }

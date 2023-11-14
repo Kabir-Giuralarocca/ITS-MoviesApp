@@ -5,6 +5,9 @@ class AppTheme {
   static final ThemeData theme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: Colors.grey.shade200,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.grey.shade200,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         textStyle: MaterialStatePropertyAll(semibold_16),

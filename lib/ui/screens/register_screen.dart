@@ -3,28 +3,29 @@ import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
 import 'package:movies_app/ui/widgets/form_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   bool obscurePwd = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 84, 16, 16),
+        padding: const EdgeInsets.all(16),
         children: [
           Text(
-            "Accedi",
+            "Registrati",
             style: bold_36,
           ),
           Text(
-            "Inserisci le tue credenziali per poter accedere all’applicazione.",
+            "Inserisci le tue credenziali per creare il tuo account e poter accedere all’applicazione.",
             style: medium_14,
           ),
           height_24,
@@ -35,6 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: "USERNAME",
                   hint: "es. MarioRossi",
                   icon: Icons.person,
+                ),
+                const FormInput(
+                  label: "EMAIL",
+                  hint: "es. mario.rossi@mail.it",
+                  icon: Icons.mail,
                 ),
                 FormInput(
                   label: "PASSWORD",
@@ -47,25 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-          )
+          ),
+          height_24,
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text("Registrati"),
+          ),
         ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Accedi"),
-            ),
-            height_8,
-            OutlinedButton(
-              onPressed: () => Navigator.pushNamed(context, "/register"),
-              child: const Text("Registrati"),
-            ),
-          ],
-        ),
       ),
     );
   }
