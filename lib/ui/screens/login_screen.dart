@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
+import 'package:movies_app/ui/utils/validators.dart';
 import 'package:movies_app/ui/widgets/form_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,6 +13,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool obscurePwd = true;
+  final _formKey = GlobalKey<FormState>();
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           height_24,
           Form(
+            key: _formKey,
             child: Column(
               children: [
                 const FormInput(
@@ -41,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hint: "Password",
                   icon: obscurePwd ? Icons.visibility : Icons.visibility_off,
                   obscureText: obscurePwd,
+                  validator: passwordValidator,
                   onIconTap: () => setState(() {
                     obscurePwd = !obscurePwd;
                   }),
@@ -56,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                if (_formKey.currentState?.validate() == true) {}
+              },
               child: const Text("Accedi"),
             ),
             height_8,
