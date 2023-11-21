@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/data/repositories/auth_repository.dart';
+import 'package:movies_app/domain/models/register_model.dart';
 import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
 import 'package:movies_app/ui/utils/validators.dart';
@@ -17,6 +19,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final username = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
+
+  void _register() {
+    // AuthRepository.register(
+    //   RegisterModel(
+    //     username: username.text,
+    //     email: email.text,
+    //     password: password.text,
+    //   ),
+    // ).then((value) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(content: Text("Registrazione avvenuta con successo!")),
+    //   );
+    // }).onError((error, stackTrace) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text(error.toString())),
+    //   );
+    // });
+
+    AuthRepository.registerWithLogin(
+      RegisterModel(
+        username: username.text,
+        email: email.text,
+        password: password.text,
+      ),
+    ).then((value) {
+      Navigator.pushNamed(context, "/home");
+    }).onError((error, stackTrace) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.toString())),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +72,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
             key: _formKey,
             child: Column(
               children: [
-                const FormInput(
+                FormInput(
                   label: "USERNAME",
                   hint: "es. MarioRossi",
                   icon: Icons.person,
+                  controller: username,
                 ),
                 FormInput(
                   label: "EMAIL",
                   hint: "es. mario.rossi@mail.it",
                   icon: Icons.mail,
                   validator: emailValidator,
+                  controller: email,
                 ),
                 FormInput(
                   label: "PASSWORD",
@@ -55,6 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   icon: obscurePwd ? Icons.visibility : Icons.visibility_off,
                   obscureText: obscurePwd,
                   validator: passwordValidator,
+                  controller: password,
                   onIconTap: () => setState(() {
                     obscurePwd = !obscurePwd;
                   }),
@@ -65,7 +102,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           height_24,
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState?.validate() == true) {}
+              if (_formKey.currentState?.validate() == true) {
+                _register();
+              }
             },
             child: const Text("Registrati"),
           ),

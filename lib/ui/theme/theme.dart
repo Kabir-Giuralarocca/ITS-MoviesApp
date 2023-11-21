@@ -8,6 +8,9 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.grey.shade200,
     ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Colors.black,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         textStyle: MaterialStatePropertyAll(semibold_16),

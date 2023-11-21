@@ -12,6 +12,7 @@ class FormInput extends StatefulWidget {
     this.obscureText = false,
     this.onIconTap,
     this.validator,
+    this.controller,
   });
 
   final String label;
@@ -20,6 +21,7 @@ class FormInput extends StatefulWidget {
   final bool obscureText;
   final VoidCallback? onIconTap;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   State<FormInput> createState() => _FormInputState();
@@ -70,6 +72,7 @@ class _FormInputState extends State<FormInput> {
             ),
             height_4,
             TextFormField(
+              controller: widget.controller,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               style: regular_14,
               cursorColor: Colors.black,
