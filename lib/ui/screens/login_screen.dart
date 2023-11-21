@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/data/repositories/auth_repository.dart';
 import 'package:movies_app/domain/models/login_model.dart';
+import 'package:movies_app/domain/token.dart';
 import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
 import 'package:movies_app/ui/utils/validators.dart';
@@ -20,6 +21,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final username = TextEditingController();
   final password = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    Token.getToken().then((value) {
+      return value.isNotEmpty ? Navigator.pushNamed(context, "/home") : null;
+    });
+  }
 
   void _showLoader(bool show) => setState(() => showLoader = show);
 

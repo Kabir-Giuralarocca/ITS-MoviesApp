@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:movies_app/domain/exeptions/exceptions.dart';
 import 'package:movies_app/domain/models/login_model.dart';
@@ -58,5 +59,10 @@ class AuthRepository {
       register(model),
       Future.delayed(const Duration(seconds: 3), () => login(loginModel)),
     ]);
+  }
+
+  static void logout(BuildContext context) {
+    Token.removeToken();
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 }
