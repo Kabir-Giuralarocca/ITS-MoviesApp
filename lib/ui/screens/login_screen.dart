@@ -21,9 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final username = TextEditingController();
   final password = TextEditingController();
 
-  void _showLoader(bool show) => setState(() {
-        showLoader = show;
-      });
+  void _showLoader(bool show) => setState(() => showLoader = show);
 
   void _login() {
     _showLoader(true);
@@ -31,9 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       LoginModel(username: username.text, password: password.text),
     ).then((value) {
       _showLoader(false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Login avvenuta con successo!")),
-      );
+      Navigator.pushNamed(context, "/home");
     }).onError((error, stackTrace) {
       _showLoader(false);
       ScaffoldMessenger.of(context).showSnackBar(
