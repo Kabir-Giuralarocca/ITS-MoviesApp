@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
+import 'package:movies_app/ui/utils/common_widget.dart';
 import 'package:movies_app/ui/utils/validators.dart';
 
 class FormInput extends StatefulWidget {
@@ -52,14 +52,7 @@ class _FormInputState extends State<FormInput> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              spreadRadius: 5,
-              offset: const Offset(0, 2),
-              blurRadius: 16,
-            )
-          ],
+          boxShadow: lightShadow,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

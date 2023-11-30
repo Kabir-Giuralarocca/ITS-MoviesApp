@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/data/repositories/auth_repository.dart';
 import 'package:movies_app/domain/models/register_model.dart';
-import 'package:movies_app/ui/theme/dimens.dart';
 import 'package:movies_app/ui/theme/text_styles.dart';
+import 'package:movies_app/ui/utils/common_widget.dart';
 import 'package:movies_app/ui/utils/validators.dart';
 import 'package:movies_app/ui/widgets/form_input.dart';
 import 'package:movies_app/ui/widgets/loading_screen.dart';
