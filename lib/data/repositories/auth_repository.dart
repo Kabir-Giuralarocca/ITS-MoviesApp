@@ -1,52 +1,53 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:movies_app/domain/exeptions/exceptions.dart';
+import 'package:movies_app/data/client/auth_client.dart';
 import 'package:movies_app/domain/models/login_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:movies_app/domain/models/register_model.dart';
 import 'package:movies_app/domain/token.dart';
 
 class AuthRepository {
-  static const localUrl = "localhost:44342";
-  static const baseUrl = "fluttermoviesapi.azurewebsites.net";
   static var log = Logger();
 
   static Future<void> login(LoginModel model) async {
     try {
-      final response = await http.post(
-        Uri.https(baseUrl, "/SignIn"),
-        headers: {"Content-Type": "application/json; charset=UTF-8"},
-        body: jsonEncode(model.toJson()),
+      // final response = await http.post(
+      //   Uri.https(baseUrl, "/SignIn"),
+      //   headers: {"Content-Type": "application/json; charset=UTF-8"},
+      //   body: jsonEncode(model.toJson()),
+      // );
+      // if (response.statusCode == 401) {
+      //   throw Unauthorized();
+      // }
+      final response = await AuthClient.dio.post(
+        "/SignIn",
+        data: jsonEncode(model.toJson()),
       );
-      if (response.statusCode == 401) {
-        throw Unauthorized();
-      }
-      final result = jsonDecode(response.body)["token"];
+      final result = response.data["token"];
       Token.saveToken(result);
-      log.i(result);
-    } on Unauthorized {
-      throw Unauthorized(message: "Credenziali errate!");
-    } catch (e) {
-      throw GenericError(message: "Qualcosa è andato storto!");
+    } on DioException catch (e) {
+      throw e.error as Object;
     }
   }
 
   static Future<void> register(RegisterModel model) async {
     try {
-      final response = await http.post(
-        Uri.https(baseUrl, "/SignUp"),
-        headers: {"Content-Type": "application/json; charset=UTF-8"},
-        body: jsonEncode(model.toJson()),
+      // final response = await http.post(
+      //   Uri.https(baseUrl, "/SignUp"),
+      //   headers: {"Content-Type": "application/json; charset=UTF-8"},
+      //   body: jsonEncode(model.toJson()),
+      // );
+      // if (response.statusCode == 400) {
+      //   throw AlreadyExist();
+      // }
+      await AuthClient.dio.post(
+        "/SignUp",
+        data: jsonEncode(model.toJson()),
       );
-      if (response.statusCode == 400) {
-        throw AlreadyExist();
-      }
-    } on AlreadyExist {
-      throw AlreadyExist(message: "Questo account esiste già!");
-    } catch (e) {
-      throw GenericError(message: "Qualcosa è andato storto!");
+    } on DioException catch (e) {
+      throw e.error as Object;
     }
   }
 

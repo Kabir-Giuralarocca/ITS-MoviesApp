@@ -13,8 +13,10 @@ class MovieRepository {
     try {
       var token = "";
       await Token.getToken().then((value) => token = value);
-      final response = await http.get(Uri.https(baseUrl, "api/Movies"),
-          headers: {HttpHeaders.authorizationHeader: "Bearer $token"});
+      final response = await http.get(
+        Uri.https(baseUrl, "api/Movies"),
+        headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
+      );
       if (response.statusCode == 401) {
         throw Unauthorized();
       }
