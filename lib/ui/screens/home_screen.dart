@@ -59,7 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: medium_14,
                         ),
                         height_16,
-                        const SectionTitle(label: "Top Rated"),
+                        const SectionTitle(
+                          label: "Top Rated",
+                          showTopRated: true,
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: 360,
